@@ -1,0 +1,45 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python ./prepare.py
+    deps:
+    - path: ./prepare.py
+      hash: md5
+      md5: 21779b2b393d475bb28d0b7d488406fc
+      size: 673
+    - path: data/titanic.csv
+      hash: md5
+      md5: 61fdd54abdbf6a85b778e937122e1194
+      size: 60302
+    params:
+      params.yaml:
+        prepare.random_state: 42
+        prepare.test_size: 0.2
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 377b506cfa78b0eb6472e8c8be660e32.dir
+      size: 18841
+      nfiles: 2
+  train:
+    cmd: python ./train.py
+    deps:
+    - path: ./train.py
+      hash: md5
+      md5: 29ed12b2fd293d3772f0ffe7ac244d93
+      size: 1086
+    - path: data/processed
+      hash: md5
+      md5: 377b506cfa78b0eb6472e8c8be660e32.dir
+      size: 18841
+      nfiles: 2
+    params:
+      params.yaml:
+        train.max_iter: 1000
+        train.model: LogisticRegression
+        train.random_state: 42
+    outs:
+    - path: model.pkl
+      hash: md5
+      md5: 6672464a863e27054f554d72f2d46356
+      size: 1199
