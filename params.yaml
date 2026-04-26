@@ -1,7 +1,0 @@
-prepare:
-  test_size: 0.2
-  random_state: 42
-train:
-  model: LogisticRegression
-  random_state: 42
-  max_iter: 1000
