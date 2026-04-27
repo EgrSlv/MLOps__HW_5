@@ -4,3 +4,4 @@ src/__pycache__
 src/__marimo__
 src/example_nb.py
 src/example.py
+/model.pkl
