@@ -2,13 +2,23 @@ stages:
   prepare:
     cmd: python src/prepare.py
     deps:
-    - src/prepare.py
+      - src/prepare.py
+      - data/raw/titanic.csv
     outs:
-    - data/processed
+      - data/processed/train.csv
+      - data/processed/test.csv
+    params:
+      - prepare.test_size
+      - prepare.random_state
   train:
     cmd: python src/train.py
     deps:
-    - data/processed
-    - src/train.py
+      - src/train.py
+      - data/processed/train.csv
+      - data/processed/test.csv
     outs:
-    - model.pkl
+      - models/model.pkl
+    params:
+      - train.model
+      - train.random_state
+      - train.max_iter

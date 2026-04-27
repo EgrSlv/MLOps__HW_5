@@ -2,6 +2,14 @@ prepare:
   test_size: 0.2
   random_state: 42
 train:
-  model: LogisticRegression
+  model: RandomForestClassifier  # или LogisticRegression
   random_state: 42
+  # Логистическая регрессия
+  C: 1.0
+  solver: lbfgs
   max_iter: 1000
+  # Случайный лес
+  n_estimators: 100
+  max_depth: null
+  min_samples_split: 2
+  min_samples_leaf: 1
