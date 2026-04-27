@@ -1,0 +1,51 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - path: data/raw/titanic.csv
+      hash: md5
+      md5: 61fdd54abdbf6a85b778e937122e1194
+      size: 60302
+    - path: src/prepare.py
+      hash: md5
+      md5: 189c33ef308b904a33790b6358ecfd43
+      size: 1107
+    params:
+      params.yaml:
+        prepare.random_state: 42
+        prepare.test_size: 0.2
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 5cc5c242f6138af1e5129b16aa212142
+      size: 9019
+    - path: data/processed/train.csv
+      hash: md5
+      md5: b3b4a9fa5b781e22b49befaee1841168
+      size: 35759
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 5cc5c242f6138af1e5129b16aa212142
+      size: 9019
+    - path: data/processed/train.csv
+      hash: md5
+      md5: b3b4a9fa5b781e22b49befaee1841168
+      size: 35759
+    - path: src/train.py
+      hash: md5
+      md5: a46ce74b1311561ab26c1a82a3b85d4c
+      size: 2486
+    params:
+      params.yaml:
+        train.max_iter: 1000
+        train.model: RandomForestClassifier
+        train.random_state: 42
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: b4a5df9d0fd23b8fd554ae7d302c7435
+      size: 2317273
